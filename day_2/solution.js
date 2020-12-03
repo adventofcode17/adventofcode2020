@@ -15,7 +15,7 @@ const inputs = fs.readFileSync("input.txt")
     .split("\n")
     .map(line => line.match(re).groups);
 
-//console.log(inputs)
+// console.log(inputs)
 
 const part1 = inputs.map(input => {
     const occurrences = input.password.split(input.letter).length - 1;

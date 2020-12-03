@@ -31,5 +31,5 @@ console.log(countTrees([3, 1]))
 // What do you get if you multiply together the number of trees encountered on each of the listed slopes?
 // 2122848000
 const slopes = [[1, 1], [3, 1], [5, 1], [7, 1], [1, 2]] // [(dx, dy)]
-let result = slopes.reduce((acc, slope) => acc * countTrees(slope), 1)
+const result = slopes.reduce((acc, slope) => acc * countTrees(slope), 1)
 console.log(result)

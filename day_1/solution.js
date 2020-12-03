@@ -7,7 +7,7 @@ const numbers = fs.readFileSync("input.txt")
     .split("\n")
     .map(Number);
 
-//console.log(numbers);
+// console.log(numbers);
 
 function part_1() {
     for (const n1 of numbers) {
