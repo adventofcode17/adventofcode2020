@@ -1,2 +1,2 @@
-# adventofcode2019
-JavaScript (nodejs) solutions to Advent of Code 2019 https://adventofcode.com/2019
+# adventofcode2020
+JavaScript (nodejs) solutions to Advent of Code 2020 https://adventofcode.com/2020
