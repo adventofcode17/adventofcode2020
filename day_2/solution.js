@@ -18,10 +18,10 @@ const inputs = fs.readFileSync("input.txt")
 //console.log(inputs)
 
 const part1 = inputs.map(input => {
-    const occurences = input.password.split(input.letter).length - 1;
+    const occurrences = input.password.split(input.letter).length - 1;
 
     // The password policy indicates the lowest and highest number of times a given letter must appear for the password to be valid. For example, 1-3 a means that the password must contain a at least 1 time and at most 3 times.
-    return (input.n1 <= occurences) && (occurences <= input.n2);
+    return (input.n1 <= occurrences) && (occurrences <= input.n2);
 })
     .filter(Boolean)
     .length;
