@@ -34,11 +34,11 @@ function isValid(passport) {
     return Object.entries(requiredFields).every(([field, regex]) => regex.test(passport.get(field)));
 }
 
-const part1 = passports.map(passport => hasRequiredFields(passport))
+const part1 = passports.map(hasRequiredFields)
     .filter(Boolean)
     .length;
 
-const part2 = passports.map(passport => isValid(passport))
+const part2 = passports.map(isValid)
     .filter(Boolean)
     .length;
 
