@@ -31,12 +31,7 @@ function hasRequiredFields(passport) {
 }
 
 function isValid(passport) {
-    for (let [field, regex] of Object.entries(requiredFields)) {
-        if (!regex.test(passport.get(field))) {
-            return false;
-        }
-    }
-    return true;
+    return Object.entries(requiredFields).every(([field, regex]) => regex.test(passport.get(field)));
 }
 
 const part1 = passports.map(passport => hasRequiredFields(passport))
