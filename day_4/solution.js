@@ -32,7 +32,7 @@ function hasRequiredFields(passport) {
 
 function isValid(passport) {
     for (let [field, regex] of Object.entries(requiredFields)) {
-        if (!passport.has(field) || !regex.test(passport.get(field))) {
+        if (!regex.test(passport.get(field))) {
             return false;
         }
     }
