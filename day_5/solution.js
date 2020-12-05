@@ -12,7 +12,7 @@ const seats = fs.readFileSync("input.txt")
 // console.log(seats);
 
 function getIndex(s, topLetter) {
-    // Return the string's position e.g. getPosition("RRL", "R") returns 6 
+    // Return the string's decoded index e.g. getIndex("RRL", "R") returns 6 
     return s.split("").reduce((acc, letter, i) => {
         return acc + (letter === topLetter ? Math.pow(2, s.length - 1 - i) : 0);
     }, 0);
