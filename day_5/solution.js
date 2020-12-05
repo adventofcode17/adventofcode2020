@@ -12,9 +12,7 @@ const seats = fs.readFileSync("input.txt")
 // console.log(seats);
 
 function getSeat(pass) {
-    pass = pass.replaceAll(/[FL]/g, "0").replaceAll(/[BR]/g, "1");
-
-    return (parseInt(pass.slice(0, 7), 2) * 8) + parseInt(pass.slice(7), 2);
+    return parseInt(pass.replaceAll(/[FL]/g, "0").replaceAll(/[BR]/g, "1"), 2);
 }
 
 function getEmptySeat() {
