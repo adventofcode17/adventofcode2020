@@ -11,15 +11,10 @@ const seats = fs.readFileSync("input.txt")
 
 // console.log(seats);
 
-function getIndex(s, topLetter) {
-    // Return the string's decoded index e.g. getIndex("RRL", "R") returns 6 
-    return s.split("").reduce((acc, letter, i) => {
-        return acc + (letter === topLetter ? Math.pow(2, s.length - 1 - i) : 0);
-    }, 0);
-}
-
 function getSeat(pass) {
-    return (getIndex(pass.slice(0, 7), "B") * 8) + getIndex(pass.slice(7), "R");
+    pass = pass.replaceAll(/[FL]/g, "0").replaceAll(/[BR]/g, "1");
+
+    return (parseInt(pass.slice(0, 7), 2) * 8) + parseInt(pass.slice(7), 2);
 }
 
 function getEmptySeat() {
