@@ -18,13 +18,11 @@ function union(s1, s2) {
 }
 
 const part1 = groups
-    .map(group => group.reduce((allAnswers, form) => intersection(allAnswers, form)))
-    .map(group => group.size)
+    .map(group => group.reduce((allAnswers, form) => intersection(allAnswers, form)).size)
     .reduce((total, size) => total + size);
 
 const part2 = groups
-    .map(group => group.reduce((mutualAnswers, form) => union(mutualAnswers, form)))
-    .map(group => group.size)
+    .map(group => group.reduce((mutualAnswers, form) => union(mutualAnswers, form)).size)
     .reduce((total, size) => total + size);
 
 // 6551, 3358
