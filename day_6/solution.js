@@ -20,12 +20,12 @@ function union(s1, s2) {
 const part1 = groups
     .map(group => group.reduce((allAnswers, form) => intersection(allAnswers, form), new Set()))
     .map(group => group.size)
-    .reduce((total, size) => total + size, 0);
+    .reduce((total, size) => total + size);
 
 const part2 = groups
     .map(group => group.reduce((mutualAnswers, form) => union(mutualAnswers, form), group[0]))
     .map(group => group.size)
-    .reduce((total, size) => total + size, 0);
+    .reduce((total, size) => total + size);
 
 // 6551, 3358
 console.log(part1, part2);
