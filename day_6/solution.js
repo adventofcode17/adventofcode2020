@@ -10,7 +10,7 @@ const groups = fs.readFileSync("input.txt")
 // console.log(groups)
 
 function intersection(s1, s2) {
-    return new Set([...s1, ...s2]);
+    return new Set(function*() {yield* s1; yield* s2}());
 }
 
 function union(s1, s2) {
