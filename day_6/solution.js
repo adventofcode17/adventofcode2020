@@ -18,12 +18,12 @@ function union(s1, s2) {
 }
 
 const part1 = groups
-    .map(group => group.reduce((allLetters, form) => intersection(allLetters, form), new Set()))
+    .map(group => group.reduce((allAnswers, form) => intersection(allAnswers, form), new Set()))
     .map(group => group.size)
     .reduce((total, size) => total + size, 0);
 
 const part2 = groups
-    .map(group => group.reduce((allLetters, form) => union(allLetters, form), group[0]))
+    .map(group => group.reduce((mutualAnswers, form) => union(mutualAnswers, form), group[0]))
     .map(group => group.size)
     .reduce((total, size) => total + size, 0);
 
