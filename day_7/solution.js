@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 
-// {"blue": [[1, "green"], [2, "yellow"], ...], [...], ...}
+// {"blue": [[1, "green"], [2, "yellow"], ...], "red": [...], ...}
 let rules = new Map(fs.readFileSync("input.txt")
     .toString()
     .split("\n")
