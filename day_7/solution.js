@@ -51,16 +51,16 @@ while (goldBags.size !== size) {
 }
 
 function countBags(colour) {
-    const childBags = rules.get(colour);
+    const innerBags = rules.get(colour);
 
     // Base case
-    if (childBags.length == 0) {
+    if (innerBags.length == 0) {
         return 1;
     }
 
     // Recursive case
-    const totalChildBags = childBags.reduce((acc, [count, colour]) => acc + (count * countBags(colour)), 0);
-    return totalChildBags + 1;
+    const totalInnerBags = innerBags.reduce((acc, [count, colour]) => acc + (count * countBags(colour)), 0);
+    return totalInnerBags + 1;
 }
 
 // 139, 58175
