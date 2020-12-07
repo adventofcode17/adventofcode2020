@@ -29,7 +29,7 @@ function parse(innerBags) {
 const goldBags = new Set();
 let size = -1;
 
-// Iteratively add colours to the list of bags that can contain gold
+// Iteratively add colours to the set of bags that can contain gold
 // until we can add no more.
 while (goldBags.size !== size) {
     size = goldBags.size;
