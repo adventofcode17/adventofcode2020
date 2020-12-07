@@ -7,7 +7,7 @@ let rules = new Map(fs.readFileSync("input.txt")
     .toString()
     .split("\n")
     .map(rule => rule.split(" bags contain "))
-    .map(([bag, innerBags]) => [bag, parse(innerBags)])
+    .map(([colour, innerBags]) => [colour, parse(innerBags)])
 );
 
 function parse(innerBags) {
@@ -17,14 +17,15 @@ function parse(innerBags) {
 
     const re = /^(?<count>[0-9]+) (?<colour>.+) bags?\.?$/;
 
-    return innerBags.split(", ").map(item => {
-        const parsedItem = item.match(re).groups;
-        return [parseInt(parsedItem.count), parsedItem.colour];
-    })
+    return innerBags
+        .split(", ")
+        .map(bag => bag.match(re).groups)
+        .map(bag => [parseInt(bag.count), bag.colour]);
 }
 
-//console.log(rules);
+// console.log(rules);
 
+// Set of all bag colours that can hold a gold bag
 const goldBags = new Set();
 let size = -1;
 
