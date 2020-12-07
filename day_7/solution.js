@@ -37,11 +37,11 @@ while (goldBags.size !== size) {
     rules.forEach((innerBags, colour) => {
         if (goldBags.has(colour)) {
             // Already confirmed this bag can contain gold
-            return
+            return;
         }
 
         const goldInnerBags = innerBags.some(([_, innerColour]) => {
-            return innerColour === "shiny gold" || goldBags.has(innerColour)
+            return innerColour === "shiny gold" || goldBags.has(innerColour);
         })
 
         if (goldInnerBags) {
@@ -59,7 +59,7 @@ function countBags(colour) {
     }
 
     // Recursive case
-    const totalChildBags = childBags.reduce((acc, [count, colour]) => acc + (count * countBags(colour)), 0)
+    const totalChildBags = childBags.reduce((acc, [count, colour]) => acc + (count * countBags(colour)), 0);
     return totalChildBags + 1;
 }
 
