@@ -10,7 +10,7 @@ acc -99
 */
 const re = /^(?<operation>[a-z]+) (?<value>[+-][0-9]+)$/;
 
-let instructions = fs.readFileSync("input.txt")
+const instructions = fs.readFileSync("input.txt")
     .toString()
     .split("\n")
     .map(instruction => instruction.match(re).groups)
@@ -70,7 +70,7 @@ console.log(run(instructions)[0])
 // Part 2 - 1375
 // Loop through each instruction in turn, testing if the transformation yields a valid program that terminates
 for (let i = 0; i < instructions.length; i++) {
-    let instruction = instructions[i];
+    const instruction = instructions[i];
 
     if (instruction.operation === "acc") {
         continue;
@@ -78,7 +78,7 @@ for (let i = 0; i < instructions.length; i++) {
 
     instruction.operation = instruction.operation === "jmp" ? "nop" : "jmp";
 
-    let [accumulator, terminatedOk] = run(instructions);
+    const [accumulator, terminatedOk] = run(instructions);
     if (terminatedOk) {
         console.log(accumulator);
         break;
