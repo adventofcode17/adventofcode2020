@@ -2,6 +2,12 @@
 
 const fs = require("fs");
 
+/* Examples:
+
+nop +0
+jmp +4
+acc -99
+*/
 const re = /^(?<operation>[a-z]+) (?<value>[+-][0-9]+)$/;
 
 let instructions = fs.readFileSync("input.txt")
