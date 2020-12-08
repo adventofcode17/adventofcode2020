@@ -78,8 +78,8 @@ for (let i = 0; i < instructions.length; i++) {
 
     instruction.operation = instruction.operation === "jmp" ? "nop" : "jmp";
 
-    let [accumulator, terminatedOK] = run(instructions);
-    if (terminatedOK) {
+    let [accumulator, terminatedOk] = run(instructions);
+    if (terminatedOk) {
         console.log(accumulator);
         break;
     }
