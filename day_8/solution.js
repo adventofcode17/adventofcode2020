@@ -19,7 +19,7 @@ let instructions = fs.readFileSync("input.txt")
 // console.log(instructions)
 
 function run(instructions) {
-    // Run the given instructions until the program terminates, returning the current value in the accumulator and whether it terminates successfully.
+    // Run the given instructions until the program terminates, returning the current value in the accumulator and whether it terminated successfully.
 
     let accumulator = 0;
     let programCounter = 0;
