@@ -14,11 +14,7 @@ const windowSize = 25;
 function valid(values, i) {
     // Return whether the value at position i is valid
     for (let j = 1; j <= windowSize; j++) {
-        for (let k = 1; k <= windowSize; k++) {
-            if (j == k) {
-                continue;
-            }
-
+        for (let k = j + 1; k <= windowSize; k++) {
             if (values[i] === values[i - j] + values[i - k]) {
                 return true;
             }
