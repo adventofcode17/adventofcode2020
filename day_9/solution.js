@@ -23,7 +23,24 @@ function valid(values, i) {
     return false;
 }
 
-// Part 1 - 731031916
+function findWeakness(values, invalidValue) {
+    for (let i = 0; i < values.length - 1; i++) {
+        let sum = values[i], min = sum, max = sum;
+    
+        for (let j = i + 1; j < values.length; j++) {
+            max = Math.max(max, values[j]);
+            min = Math.min(min, values[j]);
+    
+            sum += values[j];
+            if (sum > invalidValue) {
+                break;
+            } else if (sum === invalidValue) {
+                return min + max;
+            }
+        }
+    }
+}
+
 let invalidValue = null;
 
 for (let i = windowSize; i < values.length; i++) {
@@ -32,22 +49,6 @@ for (let i = windowSize; i < values.length; i++) {
         break;
     }
 }
-console.log(invalidValue);
 
-// Part 2 - 93396727
-for (let i = 0; i < values.length - 1; i++) {
-    let sum = values[i], min = sum, max = sum;
-
-    for (let j = i + 1; j < values.length; j++) {
-        max = Math.max(max, values[j]);
-        min = Math.min(min, values[j]);
-
-        sum += values[j];
-        if (sum > invalidValue) {
-            break;
-        } else if (sum === invalidValue) {
-            console.log(min + max);
-            return;
-        }
-    }
-}
+// 731031916, 93396727
+console.log(invalidValue, findWeakness(values, invalidValue))
