@@ -56,6 +56,7 @@ function arraysEqual(a, b) {
 }
 
 // Part 2 - 6044831973376
+// TODO use a more elegant solution :)
 
 // Idea: where there's a gap of three we can compute the total number of combinations each side of
 //       the gap separately then multiply the results for both sides together. We Don't need to cut
