@@ -12,7 +12,7 @@ console.log(adapters);
 // Add start outlet
 adapters.push(0);
 
-// The only possible arrangement using all the adapters ascending order
+// The only possible arrangement is using all the adapters in ascending order
 adapters.sort((a, b) => a - b);
 
 // Add end device
