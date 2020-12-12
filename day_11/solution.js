@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 
-// seats[row][column], op left is (0,0)
+// seats[row][column], Top left is (0,0)
 let seats = fs.readFileSync("input.txt")
     .toString()
     .split("\n")
@@ -10,7 +10,7 @@ let seats = fs.readFileSync("input.txt")
 
 // console.log(seats);
 
-// [[dy, dx], ...] Clockwise, starting at the seat immediately above the seat (x, y)
+// [[dy, dx], ...] Clockwise, starting at immediately above the seat (x, y)
 const directions = [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]];
 
 function inBounds(seats, row, column) {
