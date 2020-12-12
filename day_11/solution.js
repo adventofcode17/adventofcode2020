@@ -10,27 +10,50 @@ let seats = fs.readFileSync("input.txt")
 
 // console.log(seats);
 
+// dy, dx (clockwise, starting at the seat immediately above)
+const directions = [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]];
+
 function inBounds(seats, row, column) {
     return row >= 0 && row < seats.length && column >= 0 && column <= seats[0].length;
 }
 
-function seatsOccupied(seats, row, column) {
-    // Return the number of occupied adjacent seats
+function occupiedPartOne(seats, row, column) {
+    // Return the total number of occupied adjacent seats
+    let total = 0;
 
-    // dy, dx (clockwise, starting at the seat immediately above)
-    const diffs = [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]];
+    for (let i = 0; i < directions.length; i++) {
+        const [dy, dx] = directions[i];
+        let r = row + dy, c = column + dx;
 
-    const occupied = diffs.map(([dx, dy]) => {
-        const r = row + dx, c = column + dy;
-        return inBounds(seats, r, c) && seats[r][c] === "#";
-    })
-
-    return occupied
-        .filter(Boolean)
-        .length;
+        if (inBounds(seats, r, c) && seats[r][c] === "#") {
+            total++;
+        }
+    }
+    return total;
 }
 
-function nextState(seats, row, column) {
+function occupiedPartTwo(seats, row, column) {
+    // Return the total number of occupied seats when looking outwards in each direction
+    let total = 0;
+
+    for (let i = 0; i < directions.length; i++) {
+        const [dy, dx] = directions[i];
+        let r = row + dy, c = column + dx;
+
+        while (inBounds(seats, r, c) && !(seats[r][c] === "L")) {
+            if (seats[r][c] === "#") {
+                total++;
+                break;
+            }
+
+            r += dy;
+            c += dx;
+        }
+    }
+    return total;
+}
+
+function nextState(seats, row, column, maxOccupied, countOccupied) {
     // Return the next value at the given position
     const state = seats[row][column];
 
@@ -39,7 +62,7 @@ function nextState(seats, row, column) {
         return state;
     }
 
-    const adjacentOccupied = seatsOccupied(seats, row, column)
+    const adjacentOccupied = countOccupied(seats, row, column)
 
     // If a seat is empty (L) and there are no occupied seats adjacent to it, the seat becomes occupied.
     if ((state === "L") && (adjacentOccupied === 0)) {
@@ -47,7 +70,7 @@ function nextState(seats, row, column) {
     }
 
     // If a seat is occupied (#) and four or more seats adjacent to it are also occupied, the seat becomes empty.
-    if ((state === "#") && (adjacentOccupied >= 4)) {
+    if ((state === "#") && (adjacentOccupied >= maxOccupied)) {
         return "L";
     }
 
@@ -55,7 +78,31 @@ function nextState(seats, row, column) {
     return state;
 }
 
-function occupiedSeats(seats) {
+function run(seats, maxOccupied, visibleOccupied) {
+    let nextSeats = new Array(seats.length);
+    let seatChanged = true;
+
+    while (seatChanged) {
+        seatChanged = false;
+
+        for (let row = 0; row < seats.length; row++) {
+            nextSeats[row] = new Array(seats[row].length);
+
+            for (let column = 0; column < seats[row].length; column++) {
+                nextSeats[row][column] = nextState(seats, row, column, maxOccupied, visibleOccupied);
+                seatChanged = seatChanged || (seats[row][column] !== nextSeats[row][column]);
+            }
+        }
+
+        seats = nextSeats;
+        nextSeats = new Array(seats.length);
+    }
+
+    return seats;
+}
+
+function totalOccupied(seats) {
+    // Return the total number of occupied seats
     let occupied = 0;
 
     for (let row = 0; row < seats.length; row++) {
@@ -68,24 +115,8 @@ function occupiedSeats(seats) {
     return occupied;
 }
 
-let nextSeats = new Array(seats.length);
-let seatChanged = true;
+// Part 1 - 2483
+console.log(totalOccupied(run(seats, 4, occupiedPartOne)));
 
-while (seatChanged) {
-    seatChanged = false;
-
-    for (let row = 0; row < seats.length; row++) {
-        nextSeats[row] = new Array(seats[row].length);
-
-        for (let column = 0; column < seats[row].length; column++) {
-            nextSeats[row][column] = nextState(seats, row, column);
-            seatChanged = seatChanged || (seats[row][column] !== nextSeats[row][column]);
-        }
-    }
-
-    seats = nextSeats;
-    nextSeats = new Array(seats.length);
-}
-
-// part 1 - 2483
-console.log(occupiedSeats(seats));
+// Part 2 - 2285
+console.log(totalOccupied(run(seats, 5, occupiedPartTwo)));
