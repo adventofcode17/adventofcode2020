@@ -30,7 +30,7 @@ function travel(instructions) {
     let direction = 1;
 
     instructions.forEach(([action, value]) => {
-        let dy = 0, dx = 0;
+        let dy, dx;
 
         switch (action) {
             case "N":
@@ -68,15 +68,13 @@ function travelWaypoint(instructions) {
     let x = 0, y = 0;
 
     instructions.forEach(([action, value]) => {
-        let dy = 0, dx = 0;
-
         switch (action) {
             case "N":
             case "S":
             case "E":
             case "W":
                 // Move the waypoint in the direction by the given value.
-                [dy, dx] = compass[action];
+                let [dy, dx] = compass[action];
                 waypointX += dx * value;
                 waypointY += dy * value;
                 break;
