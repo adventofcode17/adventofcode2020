@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 
-// seats[row][column], top left is (0,0)
+// seats[row][column], op left is (0,0)
 let seats = fs.readFileSync("input.txt")
     .toString()
     .split("\n")
@@ -10,7 +10,7 @@ let seats = fs.readFileSync("input.txt")
 
 // console.log(seats);
 
-// dy, dx (clockwise, starting at the seat immediately above)
+// [[dy, dx], ...] Clockwise, starting at the seat immediately above the seat (x, y)
 const directions = [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]];
 
 function inBounds(seats, row, column) {
@@ -78,7 +78,7 @@ function nextState(seats, row, column, maxOccupied, countOccupied) {
     return state;
 }
 
-function run(seats, maxOccupied, visibleOccupied) {
+function run(seats, maxOccupied, countOccupied) {
     let nextSeats = new Array(seats.length);
     let seatChanged = true;
 
@@ -89,7 +89,7 @@ function run(seats, maxOccupied, visibleOccupied) {
             nextSeats[row] = new Array(seats[row].length);
 
             for (let column = 0; column < seats[row].length; column++) {
-                nextSeats[row][column] = nextState(seats, row, column, maxOccupied, visibleOccupied);
+                nextSeats[row][column] = nextState(seats, row, column, maxOccupied, countOccupied);
                 seatChanged = seatChanged || (seats[row][column] !== nextSeats[row][column]);
             }
         }
