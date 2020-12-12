@@ -14,7 +14,7 @@ let seats = fs.readFileSync("input.txt")
 const directions = [[-1, 0], [-1, 1], [0, 1], [1, 1], [1, 0], [1, -1], [0, -1], [-1, -1]];
 
 function inBounds(seats, row, column) {
-    return row >= 0 && row < seats.length && column >= 0 && column <= seats[0].length;
+    return row >= 0 && row < seats.length && column >= 0 && column < seats[0].length;
 }
 
 function occupiedPartOne(seats, row, column) {
