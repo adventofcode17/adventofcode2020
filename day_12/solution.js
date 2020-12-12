@@ -51,7 +51,7 @@ function travel(instructions) {
                 [dy, dx] = compass[directions[direction]];
                 x += dx * value;
                 y += dy * value;
-                break
+                break;
             default:
                 throw new TypeError("Invalid action: " + action);
         }
@@ -94,7 +94,7 @@ function travelWaypoint(instructions) {
                 // Action F means to move forward to the waypoint a number of times equal to the given value.
                 x += waypointX * value;
                 y += waypointY * value;
-                break
+                break;
             default:
                 throw new TypeError("Invalid action: " + action);
         }
