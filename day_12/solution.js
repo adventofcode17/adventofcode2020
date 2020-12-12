@@ -29,10 +29,7 @@ function travel(instructions) {
     // The ship starts by facing east.
     let direction = 1;
 
-    let n = 0;
     instructions.forEach(([action, value]) => {
-        //console.log("\n", action, value);
-
         let dy = 0, dx = 0;
 
         switch (action) {
@@ -45,10 +42,10 @@ function travel(instructions) {
                 y += dy * value;
                 break;
             case "L":
-                direction = (direction + directions.length - value / 90) % directions.length
+                direction = (direction + directions.length - value / 90) % directions.length;
                 break;
             case "R":
-                direction = (direction + value / 90) % directions.length
+                direction = (direction + value / 90) % directions.length;
                 break;
             case "F":
                 [dy, dx] = compass[directions[direction]];
@@ -58,17 +55,62 @@ function travel(instructions) {
             default:
                 throw new TypeError("Invalid action: " + action);
         }
-
-        //console.log(x, y);
     });
 
     return [x, y];
-};
+}
 
-function manhattanDistance(x, y) {
-    return Math.abs(x) + Math.abs(y)
+function travelWaypoint(instructions) {
+    // Follow the given waypoint instructions, returning the final position
+
+    // The waypoint location is relative to the ship
+    let waypointX = 10, waypointY = -1;
+    let x = 0, y = 0;
+
+    instructions.forEach(([action, value]) => {
+        let dy = 0, dx = 0;
+
+        switch (action) {
+            case "N":
+            case "S":
+            case "E":
+            case "W":
+                // Move the waypoint in the direction by the given value.
+                [dy, dx] = compass[action];
+                waypointX += dx * value;
+                waypointY += dy * value;
+                break;
+            case "L":
+                // Action L means to rotate the waypoint around the ship left (counter-clockwise) the given number of degrees.
+                for (let i = 0; i < (value / 90) % 4; i++) {
+                    [waypointX, waypointY] = [waypointY, -waypointX];
+                }
+                break;
+            case "R":
+                // Action R means to rotate the waypoint around the ship right (clockwise) the given number of degrees.
+                for (let i = 0; i < (value / 90) % 4; i++) {
+                    [waypointX, waypointY] = [-waypointY, waypointX];
+                }
+                break;
+            case "F":
+                // Action F means to move forward to the waypoint a number of times equal to the given value.
+                x += waypointX * value;
+                y += waypointY * value;
+                break
+            default:
+                throw new TypeError("Invalid action: " + action);
+        }
+    });
+
+    return [x, y];
+}
+
+function manhattanDistance([x, y]) {
+    return Math.abs(x) + Math.abs(y);
 }
 
 // Part 1 - 1424
-let [x, y] = travel(instructions);
-console.log(manhattanDistance(x, y));
+console.log(manhattanDistance(travel(instructions)));
+
+// Part 2 - 63447
+console.log(manhattanDistance(travelWaypoint(instructions)));
