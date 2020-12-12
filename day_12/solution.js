@@ -45,12 +45,10 @@ function travel(instructions) {
                 y += dy * value;
                 break;
             case "L":
-                value = value / 90;
-                direction = (direction + directions.length - value) % directions.length
+                direction = (direction + directions.length - value / 90) % directions.length
                 break;
             case "R":
-                value = value / 90;
-                direction = (direction + value) % directions.length
+                direction = (direction + value / 90) % directions.length
                 break;
             case "F":
                 [dy, dx] = compass[directions[direction]];
