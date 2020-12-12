@@ -62,15 +62,15 @@ function nextState(seats, row, column, maxOccupied, countOccupied) {
         return state;
     }
 
-    const adjacentOccupied = countOccupied(seats, row, column)
+    const occupied = countOccupied(seats, row, column)
 
     // If a seat is empty (L) and there are no occupied seats adjacent to it, the seat becomes occupied.
-    if ((state === "L") && (adjacentOccupied === 0)) {
+    if ((state === "L") && (occupied === 0)) {
         return "#";
     }
 
     // If a seat is occupied (#) and four or more seats adjacent to it are also occupied, the seat becomes empty.
-    if ((state === "#") && (adjacentOccupied >= maxOccupied)) {
+    if ((state === "#") && (occupied >= maxOccupied)) {
         return "L";
     }
 
