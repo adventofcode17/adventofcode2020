@@ -38,7 +38,7 @@ The ids in the given and example inputs are pairwise co-prime positive integers(
 
 https://en.wikipedia.org/wiki/Diophantine_equation#Chinese_remainder_theorem
 https://en.wikipedia.org/wiki/Chinese_remainder_theorem
-Good walkthrough of caluclation: https://www.omnicalculator.com/math/chinese-remainder
+Good walkthrough of calculation: https://www.omnicalculator.com/math/chinese-remainder
 Supports enough inputs to calculate answer: https://www.dcode.fr/chinese-remainder
 
 After trial/error with the simplest example 17,x,13,19 -> 3417,
