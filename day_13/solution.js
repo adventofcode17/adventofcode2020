@@ -50,7 +50,7 @@ t = 401n - 13
 etc.
 
 Inputs:
-x=[index]mod[id]
+x=[-index]mod[id]
 x≡0mod13
 x≡−7mod37
 x≡−13mod401
