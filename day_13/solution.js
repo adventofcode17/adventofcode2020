@@ -41,8 +41,7 @@ https://en.wikipedia.org/wiki/Chinese_remainder_theorem
 Good walkthrough of calculation: https://www.omnicalculator.com/math/chinese-remainder
 Supports enough inputs to calculate answer: https://www.dcode.fr/chinese-remainder
 
-After trial/error with the simplest example 17,x,13,19 -> 3417,
-work out the right boxes to put numbers into on the dcode.fr site and a final subtraction (not sure why) at the end :)
+After trial/error with the simplest example 17,x,13,19 -> 3417, work out the right boxes to put numbers into on the dcode.fr site to get the answer :)
 
 For a different integer n per equation, we're looking for the value t that satisfies:
 t = 13n
@@ -53,19 +52,14 @@ etc.
 Inputs:
 x=[index]mod[id]
 x≡0mod13
-x≡7mod37
-x≡13mod401
-x≡27mod17
-x≡32mod19
-x≡36mod23
-x≡42mod29
-x≡44mod613
-x≡85mod41
+x≡−7mod37
+x≡−13mod401
+x≡−27mod17
+x≡−32mod19
+x≡−36mod23
+x≡−42mod29
+x≡−44mod613
+x≡−85mod41
 
-Result: x=739320315996301
-
-Answer:
-(13 *37 *401 *17 *19 *23 *29 * 613 * 41) - 739320315996301 = 305068317272992
-
-Part 2 - 305068317272992
+Part 2 Result: x=305068317272992
 */
