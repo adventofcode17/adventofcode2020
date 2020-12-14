@@ -32,6 +32,8 @@ console.log(answer);
 
 /* Use Chinese remainder theorem
 
+"Whenever we have an unknown number, but we know its remainders when divided by a few coprime integers, we can find what that number is."
+
 The ids in the given and example inputs are pairwise co-prime positive integers(!!)
 
 https://en.wikipedia.org/wiki/Diophantine_equation#Chinese_remainder_theorem
