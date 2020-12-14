@@ -42,9 +42,13 @@ Good walkthrough of calculation: https://www.omnicalculator.com/math/chinese-rem
 Supports enough inputs to calculate answer: https://www.dcode.fr/chinese-remainder
 
 After trial/error with the simplest example 17,x,13,19 -> 3417,
-work out the right boxes to put numbers into and a final subtraction at the end :)
+work out the right boxes to put numbers into on the dcode.fr site and a final subtraction (not sure why) at the end :)
 
-Result: x=739320315996301
+For a different integer n per equation, we're looking for the value t that satisfies:
+t = 13n
+t = 37n - 7
+t = 401n - 13
+etc.
 
 Inputs:
 x=[index]mod[id]
@@ -57,6 +61,8 @@ x≡36mod23
 x≡42mod29
 x≡44mod613
 x≡85mod41
+
+Result: x=739320315996301
 
 Answer:
 (13 *37 *401 *17 *19 *23 *29 * 613 * 41) - 739320315996301 = 305068317272992
