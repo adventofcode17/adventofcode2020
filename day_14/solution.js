@@ -31,8 +31,6 @@ function parse(line) {
 console.log(commands);
 
 function apply([ones, zeros], value) {
-    const result = (value | ones) & zeros;
-    console.log(ones, zeros, value, result);
     return (BigInt(value) | BigInt(ones)) & BigInt(zeros);
 }
 
