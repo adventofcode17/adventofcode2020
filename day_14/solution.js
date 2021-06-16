@@ -24,7 +24,7 @@ function parse(line) {
         return { "type": "memory", "address": m.groups.address, "value": parseInt(m.groups.value) };
     }
 
-    throw new TypeError("Invalid input line: " + line);
+    throw new TypeError("Invalid input line:", line);
 }
 
 function apply(mask, value) {
@@ -37,7 +37,7 @@ function apply(mask, value) {
 
 function setCharAt(str, index, chr) {
     if (index > str.length - 1) {
-        return str;
+        throw new TypeError("Invalid string index", index);
     }
     return str.substring(0, index) + chr + str.substring(index + 1);
 }
