@@ -71,7 +71,7 @@ function setMemory(state, command, version) {
             break;
         default:
             throw new TypeError("Invalid version:", version);
-    } 
+    }
 }
 
 function execute(state, command, version) {
