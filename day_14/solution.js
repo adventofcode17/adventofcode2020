@@ -62,7 +62,7 @@ function executeRecursive(state, command, floatingMask) {
 function execute(state, command, version) {
     if (command.type === "mask") {
         state.mask = command.mask;
-        return
+        return;
     } else if (command.type !== "memory") {
         throw new TypeError("Invalid command type", command.type);
     }
