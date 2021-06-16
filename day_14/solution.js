@@ -7,16 +7,15 @@ let commands = fs.readFileSync("input.txt")
     .split("\n")
     .map(parse);
 
+// console.log(commands);
+
 function parse(line) {
     const maskRegex = /^mask = (?<mask>[X01]+)$/;
     const memRegex = /^mem\[(?<address>[0-9]+)\] = (?<value>[0-9]+)$/;
 
     let m = line.match(maskRegex);
     if (m !== null) {
-        const onesOr = parseInt(m.groups.mask.replace(/X/g, '0'), 2);
-        const zerosAnd = parseInt(m.groups.mask.replace(/X/g, '1'), 2);
-
-        return {"type": "mask", "ones": onesOr, "zeros": zerosAnd};
+        return {"type": "mask", "mask": m.groups.mask};
     }
 
     m = line.match(memRegex);
@@ -28,9 +27,10 @@ function parse(line) {
     throw new TypeError("Invalid input line: " + line);
 }
 
-console.log(commands);
+function apply(mask, value) {
+    const ones = parseInt(mask.replace(/X/g, '0'), 2);
+    const zeros = parseInt(mask.replace(/X/g, '1'), 2);
 
-function apply([ones, zeros], value) {
     return (BigInt(value) | BigInt(ones)) & BigInt(zeros);
 }
 
@@ -38,29 +38,82 @@ function sumValues(obj) {
     return Object.values(obj).reduce((a, b) => a + b);
 }
 
-function run(commands) {
-    // {address: BigInt(value)}
-    const memory = {};
+function executeV1(state, command) {
+    switch (command.type) {
+        case "mask":
+            state.mask = command.mask;
+            break;
+        case "memory":
+            state.memory[command.address] = apply(state.mask, command.value);
+            break;
+        default:
+            throw new TypeError("Invalid command type: " + command.type);
+    }
+}
 
-    // [ones, zeros]
-    let currentMask = [null, null];
+function runV1(commands) {
+    const state = {
+        "memory": {},  // {address: BigInt(value)}
+        "mask": null
+    }
 
-    commands.forEach(command => {
-        switch (command.type) {
-            case "mask":
-                currentMask = [command.ones, command.zeros];
-                break;
-            case "memory":
-                memory[command.address] = apply(currentMask, command.value);
-                break;
-            default:
-                throw new TypeError("Invalid command type: " + command.type);
-        }
-    });
+    commands.forEach(command => executeV1(state, command));
 
-    console.log(memory);
-    console.log(Number(sumValues(memory)));
+    console.log(Number(sumValues(state.memory)));
+}
+
+function setCharAt(str,index,chr) {
+    if (index > str.length-1) {
+        return str;
+    }
+    return str.substring(0,index) + chr + str.substring(index+1);
+}
+
+function executeV2Recursive(state, command, floatingMask) {
+    const index = floatingMask.indexOf("Y");
+
+    // Base case
+    if (index === -1) {
+        let address = BigInt(parseInt(state.mask.replace(/X/g, "0"), 2)) | BigInt(command.address);
+        address = apply(floatingMask, address);
+
+        state.memory[address] = command.value;
+        return;
+    }
+
+    // Recursive case
+    executeV2Recursive(state, command, setCharAt(floatingMask, index, "0"));
+    executeV2Recursive(state, command, setCharAt(floatingMask, index, "1"));
+}
+
+function executeV2(state, command) {
+    switch (command.type) {
+        case "mask":
+            state.mask = command.mask;
+            break;
+        case "memory":
+            const floatingMask = state.mask.replace(/X/g, 'Y').replace(/0|1/g, 'X');
+            executeV2Recursive(state, command, floatingMask);
+            break;
+        default:
+            throw new TypeError("Invalid command type: " + command.type);
+    }
+
+}
+
+function runV2(commands) {
+    const state = {
+        "memory": {},  // {address: BigInt(value)}
+        "mask": null,
+    }
+
+    commands.forEach(command => executeV2(state, command));
+
+    console.log(Number(sumValues(state.memory)));
 }
 
 // 9967721333886
-run(commands);
+runV1(commands);
+
+// 4355897790573
+runV2(commands);
