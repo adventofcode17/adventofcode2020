@@ -37,7 +37,7 @@ function apply(mask, value) {
 
 function setCharAt(str, index, chr) {
     if (index > str.length - 1) {
-        throw new TypeError("Invalid string index", index);
+        throw new RangeError("Invalid string index", index);
     }
     return str.substring(0, index) + chr + str.substring(index + 1);
 }
@@ -70,7 +70,7 @@ function setMemory(state, command, version) {
             executeRecursive(state, command, floatingMask);
             break;
         default:
-            throw new TypeError("Invalid version:", command.type);
+            throw new TypeError("Invalid version:", version);
     } 
 }
 
