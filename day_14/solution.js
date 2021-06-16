@@ -59,22 +59,31 @@ function executeRecursive(state, command, floatingMask) {
     executeRecursive(state, command, setCharAt(floatingMask, index, "1"));
 }
 
-function execute(state, command, version) {
-    if (command.type === "mask") {
-        state.mask = command.mask;
-        return;
-    } else if (command.type !== "memory") {
-        throw new TypeError("Invalid command type", command.type);
-    }
+function setMemory(state, command, version) {
+    switch (version) {
+        case 1:
+            state.memory[command.address] = apply(state.mask, command.value);
+            break;
+        case 2:
+            // Re-use part 1's mask logic to apply the floating bits, by setting all non-floating bits to X.
+            const floatingMask = state.mask.replace(/X/g, 'Y').replace(/0|1/g, 'X');
+            executeRecursive(state, command, floatingMask);
+            break;
+        default:
+            throw new TypeError("Invalid version:", command.type);
+    } 
+}
 
-    if (version === 1) {
-        state.memory[command.address] = apply(state.mask, command.value);
-    } else if (version === 2) {
-        // Re-use part 1's mask logic to apply the floating bits, by setting all non-floating bits to X.
-        const floatingMask = state.mask.replace(/X/g, 'Y').replace(/0|1/g, 'X');
-        executeRecursive(state, command, floatingMask);
-    } else {
-        throw new TypeError("Invalid version", version);
+function execute(state, command, version) {
+    switch (command.type) {
+        case "mask":
+            state.mask = command.mask;
+            break;
+        case "memory":
+            setMemory(state, command, version);
+            break;
+        default:
+            throw new TypeError("Invalid command type:", command.type);
     }
 }
 
