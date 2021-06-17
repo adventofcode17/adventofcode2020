@@ -10,10 +10,11 @@ let numbers = fs.readFileSync("input.txt")
 console.log(numbers);
 
 // {number: turn}
-const lastSpoken = {[numbers[0]]: 0};
+const lastSpoken = {};
 
 function play(numbers, turns) {
-    let previous = numbers[0], next = null;
+    let previous = numbers[0];
+    let next;
 
     for (let turn = 1; turn < turns; turn++) {
         if (turn < numbers.length) {
