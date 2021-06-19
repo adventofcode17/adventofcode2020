@@ -68,14 +68,14 @@ function isValid(value, rules) {
     return false;
 }
 
-function errors(ticket, rules) {
+function sumErrors(ticket, rules) {
     // Return the error rate for the ticket
-    const invalid = ticket.filter(value => !isValid(value, rules));
-    return invalid.reduce((a, b) => a + b, 0);
+    const invalidValues = ticket.filter(value => !isValid(value, rules));
+    return invalidValues.reduce((a, b) => a + b, 0);
 }
 
 let errorRate = input["nearbyTickets"]
-    .reduce((acc, ticket) => acc + errors(ticket, input["rules"]), 0);
+    .reduce((acc, ticket) => acc + sumErrors(ticket, input["rules"]), 0);
 
 // 21980
 console.log(errorRate);
