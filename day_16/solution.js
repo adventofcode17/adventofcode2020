@@ -106,31 +106,21 @@ function getAnyElement(s) {
 }
 
 function knownFields(possibleFields) {
-    const knownFields = new Set();
-    for (const fields of possibleFields) {
-        if (fields.size === 1) {
-            knownFields.add(getAnyElement(fields));
-        }
-    }
-    return knownFields;
+    return possibleFields.filter(fields => fields.size == 1).map(getAnyElement);
 }
 
 function reduce(possibleFields) {
     // Reduce (in place) the set of possible fields to a single solution. Assumes the simple case that a single answer exists, otherwise will infinite loop
     // e.g. [[1, 2], [1, 2, 3], [1]] has the solution [2, 3, 1]
 
-    let known = knownFields(possibleFields);
-
-    while (known.size != possibleFields.length) {
+    while (knownFields(possibleFields).length != possibleFields.length) {
         possibleFields
             .filter(fields => fields.size > 1)
             .forEach(fields => {
-                for (let field of known) {
+                for (let field of knownFields(possibleFields)) {
                     fields.delete(field);
                 }
             });
-
-        known = knownFields(possibleFields);
     }
 }
 
