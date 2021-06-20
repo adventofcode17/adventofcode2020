@@ -144,11 +144,11 @@ function getFieldMappings(rules, ticket, nearbyTickets) {
 
 const fieldMappings = getFieldMappings(input["rules"], input["ticket"], input["nearbyTickets"]);
 
-let answer = fieldMappings
-    .reduce((acc, field, i) => field.startsWith("departure ") ? acc * input["ticket"][i] : acc, 1);
-
 // 21980
 console.log(errorRate(input["nearbyTickets"], input["rules"]));
+
+let answer = fieldMappings
+    .reduce((acc, field, i) => field.startsWith("departure ") ? acc * input["ticket"][i] : acc, 1);
 
 // 1439429522627
 console.log(answer);
