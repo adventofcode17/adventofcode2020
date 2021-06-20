@@ -117,7 +117,7 @@ function reduce(possibleFields) {
         possibleFields
             .filter(fields => fields.size > 1)
             .forEach(fields => {
-                for (let field of knownFields(possibleFields)) {
+                for (const field of knownFields(possibleFields)) {
                     fields.delete(field);
                 }
             });
@@ -132,7 +132,7 @@ function getFieldMappings(rules, ticket, nearbyTickets) {
     const fieldNames = new Set(Object.keys(rules));
 
     // Possible fields per ticket column, [{fieldOne}, {fieldOne, fieldThree}, ...]
-    let possibleFields = [];
+    const possibleFields = [];
     for (let i = 0; i < ticket.length; i++) {
         possibleFields.push(new Set(fieldNames));
     }
@@ -147,7 +147,7 @@ const fieldMappings = getFieldMappings(input["rules"], input["ticket"], input["n
 // 21980
 console.log(errorRate(input["nearbyTickets"], input["rules"]));
 
-let answer = fieldMappings
+const answer = fieldMappings
     .reduce((acc, field, i) => field.startsWith("departure ") ? acc * input["ticket"][i] : acc, 1);
 
 // 1439429522627
